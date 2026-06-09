@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@CrossOrigin(origins = "*") // Libera acesso para o Frontend
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     private final UsuarioService service;
@@ -20,20 +20,20 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listar() {
-        return ResponseEntity.ok(service.listarTodos()); // 200 OK
+        return ResponseEntity.ok(service.listarTodos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscar(@PathVariable Long id) {
         return service.buscarPorId(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build()); // 404 Not Found
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<Usuario> criar(@Valid @RequestBody Usuario usuario) {
         Usuario salvo = service.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(salvo); // 201 Created
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
     @PutMapping("/{id}")
@@ -48,7 +48,7 @@ public class UsuarioController {
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         if (service.buscarPorId(id).isPresent()) {
             service.deletar(id);
-            return ResponseEntity.noContent().build(); // 204 No Content
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
     }
@@ -56,6 +56,6 @@ public class UsuarioController {
     public ResponseEntity<Usuario> login(@RequestBody Usuario loginData) {
         return service.autenticar(loginData.getEmail(), loginData.getSenha())
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()); // Retorna 401 se errar a senha
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 }

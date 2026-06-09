@@ -26,6 +26,9 @@ public class Exercicio {
 
     private Double cargaKg;
 
+    @Column(length = 1000)
+    private String historicoCargas = "";
+
     @ManyToOne
     @JoinColumn(name = "ficha_id", nullable = false)
     @JsonIgnore
@@ -50,4 +53,7 @@ public class Exercicio {
 
     public FichaTreino getFichaTreino() { return fichaTreino; }
     public void setFichaTreino(FichaTreino fichaTreino) { this.fichaTreino = fichaTreino; }
+
+    public String getHistoricoCargas() { return historicoCargas; }
+    public void setHistoricoCargas(String historicoCargas) { this.historicoCargas = historicoCargas; }
 }

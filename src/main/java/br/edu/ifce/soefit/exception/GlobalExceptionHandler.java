@@ -21,11 +21,11 @@ public class GlobalExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST); // Retorna 400 Bad Request
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeExceptions(RuntimeException ex) {
-        // Retorna um elegante 404 Not Found com a mensagem "Ficha não encontrada"
+
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
